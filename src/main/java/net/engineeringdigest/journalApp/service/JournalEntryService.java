@@ -41,6 +41,7 @@ public class JournalEntryService {
 
     }
 
+
     public Optional<JournalEntry> findById(ObjectId id){
         return journalEntryRepository.findById(id);
     }
