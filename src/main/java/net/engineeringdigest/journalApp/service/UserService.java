@@ -25,10 +25,16 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void saveEntry(User user) {
+    public void saveNewUser (User user) {
+        user.setRoles(Arrays.asList("USER"));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        user.setRoles(Arrays.asList("USER"));
+
+    }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
+
     }
 
     public Optional<User> findById(ObjectId id){
