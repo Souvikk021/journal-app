@@ -16,7 +16,7 @@ public class UserRepositoryImpl {
     public List<User> getUserForSA(){
         Query query = new Query();
 
-        Criteria criteria = new Criteria();
+        //Criteria criteria = new Criteria();
 
 
         query.addCriteria(Criteria.where("email").regex("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$\n"));
