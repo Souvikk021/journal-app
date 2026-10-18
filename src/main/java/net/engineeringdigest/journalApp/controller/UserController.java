@@ -1,4 +1,5 @@
 package net.engineeringdigest.journalApp.controller;
+import lombok.var;
 import net.engineeringdigest.journalApp.apiresponse.WeatherResponse;
 import net.engineeringdigest.journalApp.entity.User;
 import net.engineeringdigest.journalApp.repository.UserRepository;
@@ -58,19 +59,50 @@ public class UserController {
     }
 
 
+//    @GetMapping
+//    public ResponseEntity<?> greetings(){
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        WeatherResponse weatherResponse = weatherService.getWeather("Kolkata");
+//        String greeting = "";
+//        if(weatherResponse!=null){
+//            greeting = ", Weather feels like "
+//                    + weatherResponse.getCurrent().getTemperature()
+//                    + " and "
+//                    + weatherResponse.getCurrent().getWeatherDescriptions().get(0);
+//        }
+//        return new ResponseEntity<>("Hi " + authentication.getName() + greeting, HttpStatus.OK);
+//    }
+
+
     @GetMapping
-    public ResponseEntity<?> greetings(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        WeatherResponse weatherResponse = weatherService.getWeather("Kolkata");
+    public ResponseEntity<?> greetings() {
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        WeatherResponse weatherResponse =
+                weatherService.getWeather("Kolkata");
+
         String greeting = "";
-        if(weatherResponse!=null){
-            greeting = ", Weather feels like "
-                    + weatherResponse.getCurrent().getTemperature()
-                    + " and "
-                    + weatherResponse.getCurrent().getWeatherDescriptions().get(0);
+
+        if (weatherResponse != null
+                && weatherResponse.getCurrent() != null) {
+
+            var descriptions =
+                    weatherResponse.getCurrent().getWeatherDescriptions();
+
+            if (descriptions != null && !descriptions.isEmpty()) {
+                greeting = ", Weather feels like "
+                        + weatherResponse.getCurrent().getTemperature()
+                        + " and "
+                        + descriptions.get(0);
+            }
         }
-        return new ResponseEntity<>("Hi " + authentication.getName() + greeting, HttpStatus.OK);
+
+        return ResponseEntity.ok(
+                "Hi " + authentication.getName() + greeting
+        );
     }
+
 
 
 
